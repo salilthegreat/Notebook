@@ -10,7 +10,7 @@ export const Notes = () => {
     const { notes, setNotes } = context;
     return (
         <div className="container">
-            <h2 className="my-3">Your Notes</h2>
+            <h2 className="my-3 me-2">Your Notes</h2>
             {/* Iteerating every element from the notes */}
             <div className="row">
                     {notes.map((note) => {
