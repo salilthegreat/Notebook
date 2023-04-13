@@ -1,8 +1,12 @@
 import React from 'react'
-
+import { useContext } from 'react'
+import NoteContext from '../context/notes/noteContext'
 const About = () => {
+  // Assigning the variable with the NoteContext value
+  const a = useContext(NoteContext)
   return (
-    <div>About</div>
+    //Accessing the value using the variable
+    <div>About me : I am {a.name}, studying in class {a.class}</div>
   )
 }
 
