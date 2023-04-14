@@ -44,30 +44,32 @@ const notesInitial = [
       "__v": 0
     },
     {
-        "_id": "6435e3bcd23bbfaeddb4eff6",
-        "user": "64326219018bffe34d481341",
-        "title": "What To Do",
-        "description": "Find a way",
-        "tag": "Heart",
-        "__v": 0
-      },
-      {
-        "_id": "6435e6acd23bbfaeddb4effa",
-        "user": "64326219018bffe34d481341",
-        "title": "What will happen",
-        "description": "Who knows,you will also never know, if you don't even try.Give your best.",
-        "tag": "Prsonal",
-        "__v": 0
-      },
-      {
-        "_id": "64364ac69457c39bf99dbb32",
-        "user": "64326219018bffe34d481341",
-        "title": "Don't think , Act",
-        "description": "Just do what the situation demands you to do.You will comeout strong.Do your best",
-        "tag": "Prsonal",
-        "__v": 0
-      }
+      "_id": "6435e3bcd23bbfaeddb4eff6",
+      "user": "64326219018bffe34d481341",
+      "title": "What To Do",
+      "description": "Find a way",
+      "tag": "Heart",
+      "__v": 0
+    },
+    {
+      "_id": "6435e6acd23bbfaeddb4effa",
+      "user": "64326219018bffe34d481341",
+      "title": "What will happen",
+      "description": "Who knows,you will also never know, if you don't even try.Give your best.",
+      "tag": "Prsonal",
+      "__v": 0
+    },
+    {
+      "_id": "64364ac69457c39bf99dbb32",
+      "user": "64326219018bffe34d481341",
+      "title": "Don't think , Act",
+      "description": "Just do what the situation demands you to do.You will comeout strong.Do your best",
+      "tag": "Prsonal",
+      "__v": 0
+    }
   ]
+  //creating a state of note
+  const [notes,setNotes] = useState(notesInitial)
 
   //Add a Note
   const addNote = ( title,description,tag)=>{
@@ -90,12 +92,14 @@ const notesInitial = [
   }
 
   //Delete Note
-  const deleteNote = ()=>{
-    
+  //it takes id as input
+  const deleteNote = (id)=>{
+    console.log("deleting the note with id:" + id)
+    //new notes are stored by filtering the notes and storing the one which don't have the given id 
+    const newNotes = notes.filter((note)=>{return note._id !== id})
+    setNotes(newNotes)
   }
 
-  //creating a state of note
-  const [notes,setNotes] = useState(notesInitial)
 
 return(
     //passing the state and different functions
