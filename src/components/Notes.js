@@ -1,23 +1,27 @@
 import React, { useContext } from 'react'
 import NoteContext from '../context/notes/noteContext'
 import { Noteitem } from './Noteitem';
+import { AddNote } from './AddNote';
 
 export const Notes = () => {
     //importing and using the noteContext
     const context = useContext(NoteContext);
     //destructurint the values from the context f
     // eslint-disable-next-line
-    const { notes, setNotes } = context;
+    const {notes,addNote} = context;
     return (
-        <div className="container">
-            <h2 className="my-3 me-2">Your Notes</h2>
-            {/* Iteerating every element from the notes */}
-            <div className="row">
+        <>
+            <AddNote />
+            <div className="container">
+                <h2 className="my-3 me-2">Your Notes</h2>
+                {/* Iteerating every element from the notes */}
+                <div className="row">
                     {notes.map((note) => {
-                        //noteitem for each note
+                        // noteitem for each note
                         return <Noteitem note={note} />
                     })}
+                </div>
             </div>
-        </div>
+        </>
     )
 }

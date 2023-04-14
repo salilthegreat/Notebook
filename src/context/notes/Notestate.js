@@ -68,12 +68,38 @@ const notesInitial = [
         "__v": 0
       }
   ]
+
+  //Add a Note
+  const addNote = ( title,description,tag)=>{
+    //note is hardcoded but later it will be added by api
+    const note = {
+      "_id": "6435e3bcd23bbfaeddb4eff7",
+      "user": "64326219018bffe34d481349",
+      "title": title,
+      "description": description,
+      "tag": "Fiery Resolve",
+      "__v": 0
+    }
+    //to add notes to the list of notes already present
+   setNotes(notes.concat(note)) 
+  }
+
+  //Edit a Notes
+  const editNote = ()=>{
+    
+  }
+
+  //Delete Note
+  const deleteNote = ()=>{
+    
+  }
+
   //creating a state of note
   const [notes,setNotes] = useState(notesInitial)
 
 return(
-    //passing the state and set state as context
-        <NoteContext.Provider value = {{notes,setNotes}}>
+    //passing the state and different functions
+        <NoteContext.Provider value = {{notes,addNote,deleteNote,editNote}}>
         {props.children}
         </NoteContext.Provider>
     )
