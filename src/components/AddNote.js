@@ -4,7 +4,7 @@ export const AddNote = () => {
     const context = useContext(NoteContext);
     const {addNote} = context;
     //a state is created to feed the values in to the addNote() from the inputs
-    const [note,setNote] = useState ({title:" ",description:" ",tag:"default"})
+    const [note,setNote] = useState ({title:" ",description:" ",tag:""})
     //Function to fetch the input values
     const onChange = (e) =>{
     //it says change nothing from the note except the change in these input and set it's value to the value of input provided by user
@@ -30,10 +30,11 @@ export const AddNote = () => {
                             <label htmlFor="description" className="form-label">Description</label>
                             <input type="text" className="form-control" id="description" name='description' onChange={onChange}/>
                         </div>
-                        <div className="mb-3 form-check">
-                            <input type="checkbox" className="form-check-input" id="exampleCheck1" />
-                            <label className="form-check-label" htmlFor="exampleCheck1">Check me out</label>
+                        <div className="mb-3">
+                            <label htmlFor="tag" className="form-label">Tag</label>
+                            <input type="text" className="form-control" id="tag" name='tag' onChange={onChange}/>
                         </div>
+
                         <button type="submit" className="btn btn-primary" onClick={handleCLicked}>Add Note</button>
                     </form>
                 </div>

@@ -30,6 +30,7 @@ const NoteState = (props) => {
 
 //Add a Note
   const addNote = ( title,description,tag)=>{
+    
     //note is hardcoded but later it will be added by api
     const note = {
       "_id": "6435e3bcd23bbfaeddb4eff7",
@@ -39,6 +40,7 @@ const NoteState = (props) => {
       "tag": "Fiery Resolve",
       "__v": 0
     }
+
     //to add notes to the list of notes already present
   setNotes(notes.concat(note))
 }
@@ -61,7 +63,16 @@ const editNote = (id, title, description, tag) => {
 
 //Delete Note
 //it takes id as input
-const deleteNote = (id) => {
+const deleteNote = async (id) => {
+  const response = await fetch(`${host}/api/notes/deletenote/${id}`,{
+    method: "DELETE",
+    headers:{
+      "Content-Type":"application/json",
+      "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQzMjYyMTkwMThiZmZlMzRkNDgxMzQxIn0sImlhdCI6MTY4MTI0NDg1N30.YH9ipmOC60IPSiDTJzaw9zRZivXUnXOdYVl-8aoe5Oo"
+    }
+  })
+  const json = await response.json()
+  console.log(json)
   console.log("deleting the note with id:" + id)
   //new notes are stored by filtering the notes and storing the one which don't have the given id 
   const newNotes = notes.filter((note) => { return note._id !== id })
