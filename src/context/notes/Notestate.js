@@ -29,15 +29,16 @@ const NoteState = (props) => {
 
 
   //Add a Note
-  const addNote = async (title,description,tag) => {
+  const addNote = async (title, description, tag) => {
     //API call
-    const response = await fetch(`${host}/api/notes/addnote`,{
+    const response = await fetch(`${host}/api/notes/addnote`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQzMjYyMTkwMThiZmZlMzRkNDgxMzQxIn0sImlhdCI6MTY4MTI0NDg1N30.YH9ipmOC60IPSiDTJzaw9zRZivXUnXOdYVl-8aoe5Oo"
       },
-      body: JSON.stringify({title,description,tag})
+      //below data are objects so must be stored in curly braces else wrong json error
+      body: JSON.stringify({ title, description, tag })
     })
     const json = await response.json();
     //new note added to the list
@@ -45,19 +46,43 @@ const NoteState = (props) => {
   }
 
   //Edit a Notes
-  const editNote = (id, title, description, tag) => {
+  const editNote = async (id, title, description, tag) => {
     //API call
+    const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQzMjYyMTkwMThiZmZlMzRkNDgxMzQxIn0sImlhdCI6MTY4MTI0NDg1N30.YH9ipmOC60IPSiDTJzaw9zRZivXUnXOdYVl-8aoe5Oo"
+      },
+      body: JSON.stringify({ title, description, tag })
+    })
+    const json = await response.json();
+    console.log(json)
 
-    //each note is fetched from the note array
-    for (let i = 0; i < notes.length; i++) {
-      const element = notes[i];
-      //The element whose id matches that of the id to be edited will be edited
+    //each note is fetched from the note array , one way of doing it
+    // for (let i = 0; i < notes.length; i++) {
+    //   const element = notes[i];
+    //   //The element whose id matches that of the id to be edited will be edited 
+    //   if (element._id === id) {
+    //     element.title = title;
+    //     element.description = description;
+    //     element.tag = tag;
+    //   }
+    // }
+    // getNotes()
+
+    //Another way of doing itby @codewithharry
+    //parsing the note after using stringify , else it will show the changes when refreshed , but here it shows instanly
+    let newNote = JSON.parse(JSON.stringify(notes))
+    for (let i = 0; i < newNote.length; i++) {
+      let element = newNote[i];
       if (element._id === id) {
-        element.title = title;
-        element.description = description;
-        element.tag = tag;
+        newNote[i].title = title;
+        newNote[i].description = description;
+        newNote[i].tag = tag;
       }
     }
+    setNotes(newNote)
   }
 
   //Delete Note
@@ -74,7 +99,7 @@ const NoteState = (props) => {
     })
     const json = await response.json()
     console.log(json)
-    console.log("deleting the note with id:" + id)
+    // console.log("deleting the note with id:" + id)
     //new notes are stored by filtering the notes and storing the one which don't have the given id 
     const newNotes = notes.filter((note) => { return note._id !== id })
     setNotes(newNotes)
