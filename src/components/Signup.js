@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-const Signup = () => {
+import alertContext from '../context/alert/alertContext'
+const Signup = (props) => {
+    const alert = useContext(alertContext);
+    const {showAlert} = alert;
     const host = "http://localhost:5000"
     const redirect = useNavigate();
     const [credential,setCredentila] = useState({name:"",email:"",password:""})
@@ -26,12 +29,14 @@ const Signup = () => {
         if(json.success){
             localStorage.setItem('token',json.authToken);
             redirect("/")
+            showAlert("success","Sign Up successful") 
         }else{
-            alert("Set right credenttilas")
+            showAlert("warning","Use Right Credentilas") 
         }
     }
     return (
-        <div className='container'>
+        <div className='container my-4'>
+            <h2>SignUp to iNotebook</h2>
             <form onSubmit={handleClick}>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Name</label>

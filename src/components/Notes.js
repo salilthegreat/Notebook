@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import NoteContext from '../context/notes/noteContext'
 import { Noteitem } from './Noteitem';
 import { AddNote } from './AddNote';
@@ -8,12 +9,21 @@ export const Notes = () => {
     const context = useContext(NoteContext);
     //destructurint the values from the context file 
     const { notes, getNotes, editNote } = context;
+    //using useNavigate hook a redirect link will be created
+    const redirect = useNavigate();
     //ureference variable declared
     const ref = useRef(null)
     const closeRef = useRef(null)
     //useEffect is used to execute the getNote function first time which will get notes from server
     useEffect(() => {
-        getNotes();
+        //if the token exist at localstorage then fetch note 
+        if(localStorage.getItem('token')){
+            getNotes();
+        }
+        //else redirect the user to login page
+        else{
+            redirect("/login")
+        }
         // eslint-disable-next-line
     }, [])
 

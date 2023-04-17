@@ -7,14 +7,18 @@ import NoteState from './context/notes/Notestate';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import Userstate from './context/user/Userstate';
+import Alert from './components/Alert';
+import Alertstate from './context/alert/Alertstate';
 function App() {
   return (
     <>
       {/* Everything wrapped between Notestate and also their childrens can use the state variable */}
       <NoteState>
         <Userstate >
+          <Alertstate>
           <Router>
             <Navbar />
+            <Alert/>
             <Routes>
               <Route exact path="/" element={<Home />} />
               <Route exact path="/about" element={<About />} />
@@ -22,6 +26,7 @@ function App() {
               <Route exact path="/signup" element={<Signup />} />
             </Routes>
           </Router>
+          </Alertstate>
         </Userstate>
       </NoteState>
     </>

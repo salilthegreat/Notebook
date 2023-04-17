@@ -17,7 +17,8 @@ const NoteState = (props) => {
       headers: {
         "Content-Type": "application/json",
         // 'Content-Type': 'application/x-www-form-urlencoded',
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQzMjYyMTkwMThiZmZlMzRkNDgxMzQxIn0sImlhdCI6MTY4MTI0NDg1N30.YH9ipmOC60IPSiDTJzaw9zRZivXUnXOdYVl-8aoe5Oo"
+        //auth token is fetched from the local storage which is set while sign up and log in
+        "auth-token": localStorage.getItem("token")
       },
       body: JSON.stringify(), // body data type must match "Content-Type" header
     });
@@ -35,7 +36,7 @@ const NoteState = (props) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQzMjYyMTkwMThiZmZlMzRkNDgxMzQxIn0sImlhdCI6MTY4MTI0NDg1N30.YH9ipmOC60IPSiDTJzaw9zRZivXUnXOdYVl-8aoe5Oo"
+        "auth-token": localStorage.getItem("token")
       },
       //below data are objects so must be stored in curly braces else wrong json error
       body: JSON.stringify({ title, description, tag })
@@ -52,7 +53,7 @@ const NoteState = (props) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQzMjYyMTkwMThiZmZlMzRkNDgxMzQxIn0sImlhdCI6MTY4MTI0NDg1N30.YH9ipmOC60IPSiDTJzaw9zRZivXUnXOdYVl-8aoe5Oo"
+        "auth-token": localStorage.getItem("token")
       },
       body: JSON.stringify({ title, description, tag })
     })
@@ -94,7 +95,7 @@ const NoteState = (props) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQzMjYyMTkwMThiZmZlMzRkNDgxMzQxIn0sImlhdCI6MTY4MTI0NDg1N30.YH9ipmOC60IPSiDTJzaw9zRZivXUnXOdYVl-8aoe5Oo"
+        "auth-token": localStorage.getItem("token")
       }
     })
     const json = await response.json()

@@ -1,6 +1,19 @@
-import React, { useEffect } from 'react'
-import {Link, useLocation} from "react-router-dom"
+import React, { useEffect,useContext } from 'react'
+import {Link, useLocation,useNavigate} from "react-router-dom"
+import alertContext from '../context/alert/alertContext';
 const Navbar = () => {
+    const redirect = useNavigate();
+    const alert = useContext(alertContext);
+    const{showAlert} = alert;
+    //function to run when logout button is clicked
+    const handleLogout = () =>{
+        //first remove the token from the local storage then no authentication is possible
+        localStorage.removeItem('token');
+        //at the same time redirect him to login so, unless he logins , he can't see any notes
+        redirect("/login");
+        showAlert("success","Logout Successfully")
+    }
+    //location hook used to check the location and set some values,like highlighting the nav links when clicked
     let location = useLocation();
     useEffect(()=>{
         console.log(location.pathname)
@@ -22,10 +35,11 @@ const Navbar = () => {
                                <Link className={`nav-link ${location.pathname === "/about"? "active" : ""} `} to="/about">About</Link>
                             </li>
                         </ul>
-                        <form className="d-flex" role="search">
+                        {/* if the token is not present then show login and sign up button else show the log out button  */}
+                        {!localStorage.getItem('token') ? <form className="d-flex" role="search">
                             <Link type='button' className='btn btn-primary mx-1 rounded' to="/login">Login</Link>
                             <Link type='button' className='btn btn-primary mx-1 rounded' to="/signup">Signup</Link>
-                        </form>
+                        </form> : <button type='button' onClick={handleLogout} className='btn btn-primary'>Logout</button> }
                     </div>
                 </div>
             </nav>
